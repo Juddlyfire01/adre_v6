@@ -1,0 +1,202 @@
+# LlamaIndex Development Rules
+
+## Core Principles
+- Always follow LlamaIndex best practices and patterns
+- Implement proper document loading, chunking, and indexing strategies
+- Use appropriate vector stores and query engines for the use case
+- Ensure proper error handling and fallback mechanisms
+- Implement comprehensive logging and monitoring
+
+## Security Requirements (Always Applied)
+- Use environment variables for all API keys and sensitive configuration
+- Implement input validation and sanitization for all user inputs
+- Use parameterized queries for database operations
+- Implement proper rate limiting and cost monitoring
+- Validate all document inputs and handle malformed data gracefully
+
+## LlamaIndex Best Practices (Always Applied)
+
+### Document Processing
+- Choose appropriate document readers for file types (PDF, DOCX, HTML, etc.)
+- Implement optimal chunking strategies based on content type
+- Use proper metadata extraction for better retrieval
+- Handle document preprocessing and validation
+- Implement document versioning and update strategies
+
+### Vector Storage & Retrieval
+- Select appropriate vector stores for use case (Pinecone, Weaviate, Chroma, etc.)
+- Implement proper embedding strategies and similarity metrics
+- Use hybrid search (dense + sparse) when beneficial
+- Implement efficient indexing and querying patterns
+- Set up proper backup and recovery procedures
+
+### Query Engine Design
+- Choose appropriate query engine types for different use cases
+- Implement proper retrieval strategies with fallbacks
+- Use response synthesis patterns (compact, tree_summarize, etc.)
+- Implement query preprocessing and postprocessing
+- Create query caching strategies for performance
+
+### RAG Architecture
+- Decouple chunks used for retrieval vs. synthesis
+- Implement structured retrieval for larger document sets
+- Use dynamic retrieval based on task requirements
+- Optimize context embeddings and similarity metrics
+- Implement proper error handling for API failures
+
+### Performance Optimization
+- Use streaming responses for better user experience
+- Implement proper chunking strategies (sentence, paragraph, semantic)
+- Optimize for different similarity metrics (cosine, dot product, etc.)
+- Use appropriate vector store scaling strategies
+- Monitor and optimize for cost and performance trade-offs
+
+### Testing & Quality
+- Write comprehensive tests for document processing
+- Test retrieval accuracy and response quality
+- Implement proper error handling and fallback mechanisms
+- Create automated tests for critical RAG functionality
+- Monitor query performance and user satisfaction
+
+### Production Readiness
+- Implement proper logging for debugging and monitoring
+- Set up comprehensive error handling and fallbacks
+- Use environment variables for all configuration
+- Implement proper rate limiting and cost monitoring
+- Create backup and disaster recovery procedures
+
+## Code Quality Standards
+- Write clean, readable code with clear naming conventions
+- Create modular, reusable components and functions
+- Add helpful comments for complex logic and business rules
+- Follow consistent formatting and style guidelines
+- Document APIs and complex systems for team knowledge
+
+## Development Workflow
+- Start with simple RAG implementation and iterate
+- Test with real documents and queries early
+- Monitor performance and accuracy metrics
+- Implement proper error handling from the start
+- Use appropriate vector stores and query engines for scale
+
+## Common Patterns to Follow
+- Use VectorStoreIndex for basic RAG applications
+- Implement proper document loading with SimpleDirectoryReader
+- Use appropriate chunking strategies (SentenceSplitter, etc.)
+- Implement query engines with proper response synthesis
+- Use streaming responses for better user experience
+- Implement proper error handling for API failures
+- Use environment variables for all API keys and configuration
+- Create comprehensive logging for debugging and monitoring
+
+## Anti-Patterns to Avoid
+- Don't use naive top-k retrieval for all queries
+- Don't ignore chunking strategy impact on retrieval
+- Don't skip proper error handling and fallbacks
+- Don't hardcode API keys or sensitive configuration
+- Don't ignore performance monitoring and cost optimization
+- Don't skip testing with real documents and queries
+- Don't use inappropriate vector stores for your use case
+- Don't ignore proper logging and debugging capabilities
+
+## Multi-Modal Considerations
+- Use appropriate readers for different data types
+- Implement proper chunking for images, audio, video
+- Choose vector stores that support multi-modal embeddings
+- Implement proper query engines for multi-modal data
+- Handle different data types appropriately in responses
+
+## Advanced Features
+- Implement sub-question query engines for complex queries
+- Use recursive retriever agents for multi-step reasoning
+- Implement router query engines for task-specific retrieval
+- Use joint QA-summary approaches when appropriate
+- Implement structured data integration with unstructured data
+
+## Monitoring & Evaluation
+- Track query performance and response quality
+- Monitor retrieval accuracy and relevance
+- Implement proper logging for debugging
+- Create dashboards for RAG system performance
+- Track user satisfaction and engagement metrics
+- Monitor costs and optimize for efficiency
+
+## Documentation Requirements
+- Document document processing pipelines
+- Document vector store configuration and setup
+- Document query engine configuration and strategies
+- Document error handling and fallback mechanisms
+- Document performance optimization strategies
+- Create runbooks for common issues and troubleshooting
+
+## Deployment Considerations
+- Use appropriate hosting solutions for vector stores
+- Implement proper CI/CD for RAG applications
+- Set up monitoring and alerting for production systems
+- Implement proper backup and recovery procedures
+- Use containerization for consistent deployments
+- Implement proper security measures for production
+
+## Cost Optimization
+- Monitor API usage and costs
+- Implement proper caching strategies
+- Use appropriate chunking to reduce token usage
+- Optimize vector store queries for efficiency
+- Implement rate limiting and usage monitoring
+- Use cost-effective vector stores for your use case
+
+## Security Best Practices
+- Validate all user inputs and document content
+- Implement proper authentication and authorization
+- Use secure communication for API calls
+- Implement proper data encryption at rest and in transit
+- Monitor for security vulnerabilities and threats
+- Implement proper access controls for sensitive data
+
+## Error Handling
+- Implement comprehensive error handling for all components
+- Create proper fallback mechanisms for API failures
+- Handle malformed documents gracefully
+- Implement retry logic for transient failures
+- Provide meaningful error messages to users
+- Log errors for debugging and monitoring
+
+## Performance Optimization
+- Use appropriate chunking strategies for your content
+- Implement efficient vector store queries
+- Use streaming responses for better user experience
+- Implement proper caching for frequently accessed data
+- Optimize embedding generation and storage
+- Monitor and optimize for latency and throughput
+
+## Testing Strategy
+- Test with real documents and queries
+- Implement automated tests for critical functionality
+- Test error handling and fallback mechanisms
+- Test performance under load
+- Test with different document types and sizes
+- Implement integration tests for end-to-end functionality
+
+## Maintenance & Updates
+- Keep dependencies updated and secure
+- Monitor for deprecated APIs and patterns
+- Implement proper versioning for RAG systems
+- Create migration strategies for breaking changes
+- Document changes and updates for team knowledge
+- Implement proper rollback procedures
+
+## Team Collaboration
+- Document code and configuration clearly
+- Create runbooks for common operations
+- Implement proper code review processes
+- Share knowledge and best practices
+- Create training materials for new team members
+- Establish clear communication protocols
+
+## Continuous Improvement
+- Monitor system performance and user feedback
+- Implement A/B testing for RAG improvements
+- Track and analyze query patterns and success rates
+- Optimize based on usage data and feedback
+- Implement feedback loops for system improvement
+- Stay updated with latest LlamaIndex features and best practices 
