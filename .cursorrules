@@ -199,4 +199,201 @@
 - Track and analyze query patterns and success rates
 - Optimize based on usage data and feedback
 - Implement feedback loops for system improvement
-- Stay updated with latest LlamaIndex features and best practices 
+- Stay updated with latest LlamaIndex features and best practices
+
+## Research Findings: Modular LlamaIndex Agent Workflows Architecture
+
+### Core Architecture Patterns
+
+#### Event-Driven Workflow Architecture
+- **Pattern**: Uses event-driven pattern instead of traditional DAGs for complex AI applications
+- **Pros**: Natural handling of complex branching, looping, and state management
+- **Cons**: Can be overkill for simple linear RAG pipelines
+- **Best for**: Multi-step reasoning, complex decision trees, stateful processes
+- **Source**: [LlamaIndex Workflows Documentation](https://docs.llamaindex.ai/en/stable/understanding/workflows/)
+
+#### Hub-and-Spoke Architecture (LlamaDeploy)
+- **Pattern**: Central orchestrator manages workflow execution and state
+- **Pros**: Fault tolerance, easy component replacement, high concurrency support
+- **Cons**: Increased complexity for simple use cases
+- **Best for**: Production deployments requiring scalability and reliability
+- **Source**: [LlamaDeploy Documentation](https://docs.llamaindex.ai/en/stable/module_guides/llama_deploy/)
+
+### Agent Structure Options
+
+#### Single Agent with Multiple Tools
+```
+Agent → Tool 1 → Tool 2 → Tool 3 → Response
+```
+- **Pros**: Simple to implement, easy to debug
+- **Cons**: Limited to sequential execution, potential bottlenecks
+- **Best for**: Straightforward workflows with clear step sequences
+
+#### Multi-Agent Workflows
+```
+Agent A → Agent B → Agent C → Coordinator → Response
+```
+- **Pros**: Specialized agents for different tasks, parallel processing possible
+- **Cons**: Complex coordination, potential communication overhead
+- **Best for**: Complex workflows requiring different expertise areas
+- **Source**: [Agentic Document Workflows](https://www.llamaindex.ai/blog/introducing-agentic-document-workflows)
+
+#### Router-Based Architecture
+```
+Router → Agent A (Task Type 1)
+      → Agent B (Task Type 2) 
+      → Agent C (Task Type 3)
+```
+- **Pros**: Efficient task routing, specialized handling
+- **Cons**: Requires good routing logic, potential misclassification
+- **Best for**: Systems handling diverse query types
+
+### Tool Architecture Patterns
+
+#### Function-Based Tools
+- Simple Python functions wrapped as tools
+- **Pros**: Easy to implement, test, and debug
+- **Cons**: Limited to synchronous operations
+- **Best for**: Simple data processing and calculations
+
+#### Async Tool Patterns
+- Tools that can handle concurrent operations
+- **Pros**: Better performance for I/O operations
+- **Cons**: More complex error handling
+- **Best for**: API calls, database operations, external service integration
+
+#### Tool Composition Patterns
+```
+Tool A → Tool B → Tool C (Sequential)
+Tool A → [Tool B, Tool C] (Parallel)
+```
+- **Pros**: Reusable components, flexible composition
+- **Cons**: Requires careful state management
+- **Best for**: Complex workflows with reusable components
+
+### State Management Strategies
+
+#### Session-Based State
+- State maintained across workflow execution
+- **Pros**: Simple to implement, natural for user interactions
+- **Cons**: Limited scalability, state loss on failure
+- **Best for**: Interactive applications, user sessions
+
+#### Persistent State Storage
+- State stored in databases or external systems
+- **Pros**: Scalable, fault-tolerant, supports long-running workflows
+- **Cons**: Additional infrastructure complexity
+- **Best for**: Production systems, long-running processes
+
+#### Event-Sourced State
+- State reconstructed from event history
+- **Pros**: Complete audit trail, easy debugging
+- **Cons**: Complex implementation, potential performance overhead
+- **Best for**: Compliance-heavy applications, complex debugging requirements
+
+### Architecture Decision Framework
+
+#### When to Use Simple RAG
+- Single document type
+- Straightforward Q&A use cases
+- Limited complexity requirements
+- Quick prototyping needs
+
+#### When to Use Agent Workflows
+- Multi-step reasoning required
+- Complex decision trees
+- Integration with external systems
+- Stateful processes
+- Multiple document types or sources
+- **Source**: [LlamaIndex Agents Documentation](https://docs.llamaindex.ai/en/stable/use_cases/agents/)
+
+#### When to Use Multi-Agent Systems
+- Different expertise areas needed
+- Parallel processing requirements
+- Complex coordination scenarios
+- Specialized task handling
+
+### Performance Considerations
+
+#### Scaling Strategies
+1. **Horizontal Scaling**: Deploy multiple instances of workflows
+2. **Vertical Scaling**: Optimize individual component performance
+3. **Caching**: Implement caching for expensive operations
+4. **Async Processing**: Use async patterns for I/O operations
+
+#### Cost Optimization
+1. **Token Management**: Optimize chunking and retrieval strategies
+2. **Caching**: Cache expensive operations and results
+3. **Rate Limiting**: Implement proper rate limiting
+4. **Monitoring**: Track usage and costs continuously
+
+### Production Readiness Checklist
+
+#### Infrastructure
+- [ ] Proper error handling and fallbacks
+- [ ] Comprehensive logging and monitoring
+- [ ] Security measures (authentication, authorization)
+- [ ] Backup and disaster recovery procedures
+- [ ] Performance monitoring and alerting
+
+#### Code Quality
+- [ ] Modular, reusable components
+- [ ] Comprehensive testing
+- [ ] Clear documentation
+- [ ] Consistent coding standards
+- [ ] Version control and CI/CD
+
+#### Operational
+- [ ] Environment variable management
+- [ ] Rate limiting and cost monitoring
+- [ ] Health checks and monitoring
+- [ ] Deployment automation
+- [ ] Rollback procedures
+
+### Key Insights from Research
+
+#### Agentic Document Workflows (ADW)
+- **Concept**: Combines document processing, retrieval, structured outputs, and agentic orchestration
+- **Advantage**: Goes beyond traditional IDP and RAG paradigms
+- **Use Cases**: Contract review, patient case summaries, invoice processing, insurance claims
+- **Source**: [Introducing Agentic Document Workflows](https://www.llamaindex.ai/blog/introducing-agentic-document-workflows)
+
+#### Workflow vs Query Engine Comparison
+- **Workflows**: Event-driven, step-based, manage application execution flow
+- **Query Engines**: Focus on data retrieval, postprocessing, and response synthesis
+- **Key Difference**: Workflows control execution flow, query engines focus on data retrieval
+- **Source**: [LlamaIndex Multi-Document Agents Example](https://docs.llamaindex.ai/en/stable/examples/agent/multi_document_agents-v1/)
+
+#### Deployment Considerations
+- **LlamaDeploy**: Bridges gap between development and production
+- **Benefits**: Minimal code changes, hub-and-spoke architecture, async-first design
+- **Use Cases**: High-concurrency scenarios, real-time applications
+- **Source**: [LlamaDeploy Documentation](https://docs.llamaindex.ai/en/stable/module_guides/llama_deploy/)
+
+### Best Practices Summary
+
+#### Do's
+- Start with simple RAG and add complexity incrementally
+- Create modular, reusable components and tools
+- Implement comprehensive error handling and fallbacks
+- Plan state management strategy early
+- Test with real documents and queries from the start
+- Implement proper logging and performance monitoring
+- Use environment variables for all sensitive configuration
+- Document your workflow architecture and decisions
+
+#### Don'ts
+- Don't over-engineer simple RAG needs
+- Don't skip performance monitoring and optimization
+- Don't hardcode API keys or sensitive data
+- Don't assume everything will work perfectly
+- Don't skip cost monitoring and optimization
+- Don't ignore state management for complex workflows
+- Don't skip testing with real-world scenarios
+
+### References
+- [LlamaIndex Agents Documentation](https://docs.llamaindex.ai/en/stable/use_cases/agents/)
+- [LlamaIndex Workflows Documentation](https://docs.llamaindex.ai/en/stable/understanding/workflows/)
+- [LlamaDeploy Documentation](https://docs.llamaindex.ai/en/stable/module_guides/llama_deploy/)
+- [Agentic Document Workflows Blog](https://www.llamaindex.ai/blog/introducing-agentic-document-workflows)
+- [Multi-Document Agents Example](https://docs.llamaindex.ai/en/stable/examples/agent/multi_document_agents-v1/) 
